@@ -37,6 +37,7 @@ export default function FreeImageStudio() {
   const [history, setHistory] = useState([]);
   const [waitSeconds, setWaitSeconds] = useState(0);
   const textareaRef = useRef(null);
+  const resultRef = useRef(null);
 
   useEffect(() => {
     setHistory(loadFreeHistory());
@@ -70,6 +71,7 @@ export default function FreeImageStudio() {
       setWaitSeconds(45);
       setCurrentUrl(url);
       setCurrentBlob(blob);
+      setTimeout(() => resultRef.current && resultRef.current.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
       const entry = { id: String(Date.now()), url, prompt: prompt.trim(), model: 'flux (free)', aspect_ratio: aspect.id, seed: useSeed, timestamp: new Date().toISOString() };
       setHistory(saveFreeHistory(entry));
     } catch (e) {
@@ -88,7 +90,7 @@ export default function FreeImageStudio() {
   const previewUrl = currentUrl || (prompt.trim() ? buildPollinationsUrl(prompt.trim(), { width: aspect.width, height: aspect.height, seed }) : null);
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center bg-app-bg relative p-4 md:p-6 overflow-y-auto custom-scrollbar overflow-x-hidden">
+    <div className="w-full min-h-full flex flex-col items-center justify-start bg-app-bg relative p-4 md:p-6 py-8 overflow-y-auto custom-scrollbar overflow-x-hidden">
       <div className="flex flex-col items-center mb-8 animate-fade-in-up">
         <span className="text-xs font-black tracking-widest uppercase bg-primary text-black px-3 py-1 rounded-full mb-4">Free — No API key needed</span>
         <h1 className="text-2xl sm:text-4xl md:text-6xl font-black text-white tracking-widest uppercase mb-3 text-center px-4">Free Image Studio</h1>
@@ -132,10 +134,11 @@ export default function FreeImageStudio() {
       </div>
 
       {currentUrl && (
-        <div className="mt-8 flex flex-col items-center gap-4">
-          <img src={currentUrl} alt={prompt} className="max-h-[55vh] max-w-[85vw] rounded-3xl shadow-3xl border border-white/10 object-contain" />
+        <div ref={resultRef} className="mt-8 flex flex-col items-center gap-4 w-full scroll-mt-4">
+          <img src={currentUrl} alt={prompt} onClick={() => window.open(currentUrl, "_blank")} className="w-full max-w-3xl rounded-3xl shadow-3xl border border-white/10 object-contain cursor-zoom-in" title="Tap to view full size" />
           <div className="flex gap-3">
             <button type="button" onClick={handleDownload} className="bg-primary text-black px-6 py-2.5 rounded-2xl text-xs font-bold">↓ Download</button>
+            <button type="button" onClick={() => window.open(currentUrl, "_blank")} className="bg-white/10 hover:bg-white/20 px-6 py-2.5 rounded-2xl text-xs font-bold text-white border border-white/5">⤢ View full size</button>
             <button type="button" onClick={() => { setCurrentUrl(null); setCurrentBlob(null); setPrompt(""); }} className="bg-white/10 hover:bg-white/20 px-6 py-2.5 rounded-2xl text-xs font-bold text-white border border-white/5">+ New</button>
           </div>
         </div>

@@ -117,7 +117,7 @@ export default function StandaloneShell() {
       </header>
 
       {/* Studio Content */}
-      <div className="flex-1">
+      <div className="flex-1 min-h-0 overflow-y-auto">
         {activeTab === 'free' && <FreeImageStudio />}
         {activeTab === 'image' && !needsKey && <ImageStudio apiKey={apiKey} />}
         {activeTab === 'video' && !needsKey && <VideoStudio apiKey={apiKey} />}
