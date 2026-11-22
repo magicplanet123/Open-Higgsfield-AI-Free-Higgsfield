@@ -8,6 +8,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* Pre-compiled Tailwind CSS — Vercel's build was serving the raw
+            @tailwind directives unprocessed, so the compiled utilities are
+            shipped as a static file. Regenerate with: npm install &&
+            npm run build:studio && npm run build, then copy
+            .next/static/css/*.css to public/tailwind-compiled.css */}
+        <link rel="stylesheet" href="/tailwind-compiled.css" />
+      </head>
       <body>{children}</body>
     </html>
   );
