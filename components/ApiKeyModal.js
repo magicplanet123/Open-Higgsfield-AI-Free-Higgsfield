@@ -23,17 +23,20 @@ export default function ApiKeyModal({ onSave }) {
             </svg>
           </div>
           <h1 className="text-2xl font-black text-white uppercase tracking-wider mb-2">
-            Open Higgsfield AI
+            Magic Higgsfield Studio
           </h1>
           <p className="text-white/40 text-sm">
-            Enter your <a href="https://muapi.ai" target="_blank" rel="noreferrer" className="text-[#d9ff00] hover:underline">Muapi.ai</a> API key to start generating
+            Premium models are optional. Enter your own{' '}
+            <a href="https://kie.ai" target="_blank" rel="noreferrer" className="text-[#d9ff00] hover:underline">Kie.ai</a>{' '}
+            API key to unlock them — BYOK, you pay Kie yourself, the key stays in your browser only.
+            Free Images needs no key at all.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-bold text-white/40 uppercase tracking-widest mb-2">
-              Muapi API Key
+              Kie.ai API Key (optional, BYOK)
             </label>
             <input
               type="password"
@@ -55,9 +58,9 @@ export default function ApiKeyModal({ onSave }) {
           </button>
 
           <p className="text-center text-xs text-white/30">
-            Don&apos;t have a key?{' '}
-            <a href="https://muapi.ai" target="_blank" rel="noreferrer" className="text-[#d9ff00] hover:underline">
-              Get one free at Muapi.ai →
+            Don&apos;t have a key? Free Images works without one —{' '}
+            <a href="https://kie.ai" target="_blank" rel="noreferrer" className="text-[#d9ff00] hover:underline">
+              Kie.ai is only for premium models →
             </a>
           </p>
         </form>
